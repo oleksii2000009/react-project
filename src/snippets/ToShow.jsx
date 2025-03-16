@@ -1,23 +1,45 @@
+import React, { useState } from 'react';
 
-import React from 'react';
-import list from './data';
+const ToShow = ({ tasks, deleteTask, updateTask }) => {
+    const [editingId, setEditingId] = useState(null);
+    const [newName, setNewName] = useState("");
 
-const ToShow = ({tasks, deleteTask}) => {
+    const handleEditClick = (task) => {
+        setEditingId(task.id);
+        setNewName(task.name);
+    };
 
-
-
+    const handleSaveClick = (id) => {
+        updateTask(id, newName);
+        setEditingId(null);
+    };
 
     return (
         <div className='box'>
-                {tasks.map((element) => (
-                    <div className='one_box'>
-                    <p key={element.id}> <b>Name: </b> {element.name} <b> Description:</b> {element.description} <b>Tag:  </b>{element.tag} <b> priority: </b>{element.priority} date: {element.date} 
-                    <button onClick={() => deleteTask(element.id)}>Delete</button>
-                    </p>
-                    </div>
-                ))}
+            {tasks.map((element) => (
+                <div className='one_box' key={element.id}>
+                    {editingId === element.id ? (
+                        <div>
+                            <input 
+                                type='text' 
+                                value={newName} 
+                                onChange={(e) => setNewName(e.target.value)}
+                            />
+                            <button onClick={() => handleSaveClick(element.id)}>Save</button>
+                        </div>
+                    ) : (
+                        <p>
+                            <b>Name: </b> {element.name} <b> Description:</b> {element.description} 
+                            <b>Tag: </b> {element.tag} <b>Priority: </b>{element.priority} 
+                            Date: {element.date} 
+                            <button onClick={() => deleteTask(element.id)}>Delete</button>
+                            <button onClick={() => handleEditClick(element)}>Edit</button>
+                        </p>
+                    )}
+                </div>
+            ))}
         </div>
     );
-}
+};
 
 export default ToShow;

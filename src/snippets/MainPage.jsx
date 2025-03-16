@@ -1,4 +1,4 @@
-    import { useState } from 'react';
+    import { useState, useEffect} from 'react';
     import React from 'react';
     import InputForm from './InputForm';
     import list from './data'
@@ -7,11 +7,28 @@
 
     const Main = () => {
 
-        const [tasks, setTasks] = useState(list)
+        
+
+        const [tasks, setTasks] = useState(() => {
+            const savedTasks = localStorage.getItem('tasks');
+            return savedTasks ? JSON.parse(savedTasks) : list;
+        });
+    
+        // Сохраняем данные в localStorage при изменении tasks
+        useEffect(() => {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }, [tasks]);
 
         const deleteTask = (id) => {
             const newTasks = tasks.filter((task) => task.id !== Number(id));
             setTasks(newTasks);
+        };
+
+
+        const updateTask = (id, newName) => {
+            setTasks(tasks.map(task => 
+                task.id === id ? { ...task, name: newName } : task
+            ));
         };
         
 
@@ -23,7 +40,7 @@
             <div>
                 <InputForm addTask={addTask}/>
                 <Search tasks={tasks} />
-                <ToShow tasks={tasks} deleteTask={deleteTask}/>
+                <ToShow tasks={tasks} deleteTask={deleteTask} updateTask={updateTask}/>
             </div>
         );
     }

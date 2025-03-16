@@ -130,7 +130,9 @@ const InputForm = ({ addTask }) => {
             onChange={ (e) => {setDate(e.target.value)}}/>
             {errors.date && <p>date must not be empty</p>}
 
-            <button onClick={() => Check()}>Delete</button>
+            <button onClick={() => Check()}>Добавить</button>
+            
+    
 
 
 
