@@ -33,6 +33,7 @@ const Search = ({ tasks }) => {
   }
 
   return (
+    
     <div className="search_box">
       {/* Поиск по названию */}
       <input

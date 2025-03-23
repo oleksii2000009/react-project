@@ -19,3 +19,17 @@ h1 {
   width:100%; 
   height:400px; 
 }
+
+.show_plans {
+  margin-top: 100px;
+  border: 1px solid black;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dailyPlans, .weeklyPlans, .monthlyPlans {
+  display: flex;
+  flex-direction: column;
+}
+

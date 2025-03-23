@@ -16,6 +16,7 @@ const ToShow = ({ tasks, deleteTask, updateTask }) => {
 
     return (
         <div className='box'>
+            <h2>Список всех задач:</h2>
             {tasks.map((element) => (
                 <div className='one_box' key={element.id}>
                     {editingId === element.id ? (
